@@ -1,0 +1,21 @@
+name: crystal-proxy
+version: 0.1.0
+
+authors:
+  - Ashlie Gray <ashliejanegray@gmail.com>
+
+targets:
+  crystal-proxy:
+    main: src/crystal-proxy.cr
+
+dependencies:
+  kemal:
+    github: kemalcr/kemal
+
+  nuummite:
+    github: codesteak/nuummite
+    version: ~> 0.1.4
+
+crystal: 0.36.1
+
+license: MIT
