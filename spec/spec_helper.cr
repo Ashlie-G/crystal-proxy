@@ -1,2 +1,2 @@
 require "spec"
-require "../src/crystal-proxy"
+# require "../src/crystal-proxy"
