@@ -1,5 +1,6 @@
 require "kemal"
 require "nuummite"
+require "./get_kvps"
 # TODO: Write documentation for `Crystal::Proxy`
 # def get_code(env)
 #   env.params.url["code"]
@@ -29,12 +30,26 @@ post "/addurl" do |env|
   # env.redirect "/"
   url_code = env.params.body["code"].as(String)
   url = env.params.body["url"].as(String)
-  
+
   if !url_code.nil? && !url.nil?
     db[url_code.as(String)] = url.as(String)
     env.redirect "/"
   else
     "URL code or URL is missing"
+  end
+end
+
+get "/search/:code" do |env|
+  code: String | Nil = env.params.url["code"]?
+  if code.nil?
+    halt env, status_code: 400, response: "Url code was missing"
+  else
+    url : String | Nil = db[code]?
+    if url.nil?
+      halt env, status_code: 404, response: `Code #{code} not found`
+    else
+      url
+    end
   end
 end
 

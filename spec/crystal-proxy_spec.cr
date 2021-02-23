@@ -13,14 +13,16 @@ describe "get kvps" do
       "four" => "quatre"
     }
     expected_list = [] of {String, String}
-
-    db = Nuummite.new(".", "crystal-proxy-test.db")
+    db_filename  = "crystal-proxy-test.db"
+    db = Nuummite.new(".", db_filename )
 
     hash.each do |english, french|
       db[english] = french
       expected_list << {english, french}
     end
     get_kvps(db).should eq expected_list
+
+    File.delete(db_filename)
   end
 
 end
