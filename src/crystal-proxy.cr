@@ -10,9 +10,15 @@ module Crystal::Proxy
   db = Nuummite.new(".", "crystal-proxy.db")
 
 get "/" do
+  # names = [{"ashlie", "david"}, {"angus", "giroud"}] #list of tuples
+  key_value_pairs = [] of {String, String}
   db.each do |key, value|
-    "#{key} ==> #{value}"
+    key_value_pairs << {key, value}
   end
+  render "src/views/index.ecr"
+  # db.each do |key, value|
+  #   "#{key} ==> #{value}"
+  # end
 end
 
 get "/forward/:code" do |env|
