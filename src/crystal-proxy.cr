@@ -21,6 +21,13 @@ get "/" do
   # end
 end
 
+post "/addurl" do |env|
+  url_code = env.params.body["code"].as(String)
+  url = env.params.body["url"].as(String)
+  db[url_code] = url
+  env.redirect "/"
+end
+
 get "/forward/:code" do |env|
   url_code = env.params.url["code"]?
   if !url_code.nil?
