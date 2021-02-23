@@ -22,10 +22,20 @@ get "/" do
 end
 
 post "/addurl" do |env|
+  #code without error handling(below)
+  # url_code = env.params.body["code"].as(String)
+  # url = env.params.body["url"].as(String)
+  # db[url_code] = url
+  # env.redirect "/"
   url_code = env.params.body["code"].as(String)
   url = env.params.body["url"].as(String)
-  db[url_code] = url
-  env.redirect "/"
+  
+  if !url_code.nil? && !url.nil?
+    db[url_code.as(String)] = url.as(String)
+    env.redirect "/"
+  else
+    "URL code or URL is missing"
+  end
 end
 
 get "/forward/:code" do |env|
